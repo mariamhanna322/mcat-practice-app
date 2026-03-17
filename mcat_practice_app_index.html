@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCAT Practice App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 40px auto;
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      margin-bottom: 24px;
+    }
+
+    .question-box {
+      margin-bottom: 20px;
+      padding: 16px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fafafa;
+    }
+
+    .question-number {
+      font-size: 0.95rem;
+      color: #2563eb;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .choices {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button.choice,
+    .nav-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button.choice {
+      text-align: left;
+      background: #eef2ff;
+    }
+
+    button.choice:hover {
+      background: #dbeafe;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      background: #2563eb;
+      color: white;
+      flex: 1;
+    }
+
+    .nav-btn:disabled {
+      background: #93c5fd;
+      cursor: not-allowed;
+    }
+
+    .feedback {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .feedback.correct {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .feedback.incorrect {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .score {
+      margin-top: 16px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>MCAT Practice App</h1>
+    <p class="subtitle">A super simple question practice app for students.</p>
+
+    <div class="question-box">
+      <div class="question-number" id="question-number"></div>
+      <div id="question-text"></div>
+      <div class="choices" id="choices"></div>
+      <div class="feedback" id="feedback"></div>
+      <div class="score" id="score"></div>
+    </div>
+
+    <div class="nav">
+      <button class="nav-btn" id="prev-btn">Previous</button>
+      <button class="nav-btn" id="next-btn">Next</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "What is the primary function of the mitochondria?",
+        choices: [
+          "Protein synthesis",
+          "Energy production",
+          "DNA storage",
+          "Lipid digestion"
+        ],
+        answer: "Energy production",
+        explanation: "Mitochondria make ATP, which provides energy for the cell."
+      },
+      {
+        question: "Which macromolecule is made of amino acids?",
+        choices: [
+          "Carbohydrates",
+          "Lipids",
+          "Proteins",
+          "Nucleic acids"
+        ],
+        answer: "Proteins",
+        explanation: "Proteins are polymers built from amino acid monomers."
+      },
+      {
+        question: "What happens to pH if hydrogen ion concentration increases?",
+        choices: [
+          "pH increases",
+          "pH decreases",
+          "pH stays the same",
+          "pH becomes neutral"
+        ],
+        answer: "pH decreases",
+        explanation: "More hydrogen ions means the solution is more acidic, so pH goes down."
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let answeredQuestions = new Set();
+
+    const questionNumber = document.getElementById("question-number");
+    const questionText = document.getElementById("question-text");
+    const choicesContainer = document.getElementById("choices");
+    const feedback = document.getElementById("feedback");
+    const scoreDisplay = document.getElementById("score");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+
+    function loadQuestion() {
+      const q = questions[currentQuestion];
+      questionNumber.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+      questionText.textContent = q.question;
+      choicesContainer.innerHTML = "";
+      feedback.style.display = "none";
+      feedback.className = "feedback";
+
+      q.choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.className = "choice";
+        btn.textContent = choice;
+        btn.onclick = () => checkAnswer(choice);
+        choicesContainer.appendChild(btn);
+      });
+
+      prevBtn.disabled = currentQuestion === 0;
+      nextBtn.disabled = currentQuestion === questions.length - 1;
+      scoreDisplay.textContent = `Score: ${score}`;
+    }
+
+    function checkAnswer(selectedChoice) {
+      const q = questions[currentQuestion];
+
+      if (answeredQuestions.has(currentQuestion)) {
+        feedback.style.display = "block";
+        feedback.className = "feedback incorrect";
+        feedback.textContent = "You already answered this question. Click Next or Previous.";
+        return;
+      }
+
+      answeredQuestions.add(currentQuestion);
+
+      if (selectedChoice === q.answer) {
+        score++;
+        feedback.className = "feedback correct";
+        feedback.textContent = `Correct! ${q.explanation}`;
+      } else {
+        feedback.className = "feedback incorrect";
+        feedback.textContent = `Incorrect. Correct answer: ${q.answer}. ${q.explanation}`;
+      }
+
+      feedback.style.display = "block";
+      scoreDisplay.textContent = `Score: ${score}`;
+    }
+
+    prevBtn.onclick = () => {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        loadQuestion();
+      }
+    };
+
+    nextBtn.onclick = () => {
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        loadQuestion();
+      }
+    };
+
+    loadQuestion();
+  </script>
+</body>
+</html>
