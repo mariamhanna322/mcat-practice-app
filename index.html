@@ -223,157 +223,183 @@
   <script>
     const questionBank = {
       biology: [
-{
-  question: "Which structure is primarily responsible for ATP production in eukaryotic cells?",
-  choices: ["Nucleus", "Mitochondria", "Ribosome", "Golgi apparatus"],
-  answer: "Mitochondria",
-  explanation: "Mitochondria generate ATP through oxidative phosphorylation."
-},
-{
-  question: "Which process directly produces glucose in plants?",
-  choices: ["Respiration", "Fermentation", "Photosynthesis", "Translation"],
-  answer: "Photosynthesis",
-  explanation: "Photosynthesis converts light energy into chemical energy stored in glucose."
-},
-{
-  question: "What type of bond forms between amino acids?",
-  choices: ["Hydrogen bond", "Peptide bond", "Ionic bond", "Disulfide bond"],
-  answer: "Peptide bond",
-  explanation: "Peptide bonds link amino acids together to form proteins."
-},
-{
-  question: "Which phase of mitosis involves separation of sister chromatids?",
-  choices: ["Prophase", "Metaphase", "Anaphase", "Telophase"],
-  answer: "Anaphase",
-  explanation: "During anaphase, sister chromatids are pulled apart to opposite poles."
-},
-{
-  question: "Which macromolecule stores genetic information?",
-  choices: ["Protein", "Carbohydrate", "DNA", "Lipid"],
-  answer: "DNA",
-  explanation: "DNA contains genetic instructions for cellular function."
-},
-{
-  question: "Which organelle modifies and packages proteins?",
-  choices: ["Lysosome", "Golgi apparatus", "Nucleus", "Mitochondria"],
-  answer: "Golgi apparatus",
-  explanation: "The Golgi modifies and packages proteins for transport."
-},
-{
-  question: "Which molecule is the primary energy currency of the cell?",
-  choices: ["ADP", "ATP", "DNA", "Glucose"],
-  answer: "ATP",
-  explanation: "ATP stores and transfers energy within cells."
-},
-{
-  question: "Which type of transport requires energy?",
-  choices: ["Diffusion", "Facilitated diffusion", "Active transport", "Osmosis"],
-  answer: "Active transport",
-  explanation: "Active transport uses ATP to move substances against a gradient."
-},
-{
-  question: "What happens during transcription?",
-  choices: ["DNA → RNA", "RNA → Protein", "Protein → DNA", "RNA → DNA"],
-  answer: "DNA → RNA",
-  explanation: "Transcription produces mRNA from a DNA template."
-},
-{
-  question: "Which structure controls what enters and leaves the cell?",
-  choices: ["Nucleus", "Cell membrane", "Ribosome", "Cytoskeleton"],
-  answer: "Cell membrane",
-  explanation: "The cell membrane regulates transport into and out of the cell."
-},
-{
-  question: "Which type of RNA carries amino acids to the ribosome?",
-  choices: ["mRNA", "tRNA", "rRNA", "snRNA"],
-  answer: "tRNA",
-  explanation: "tRNA delivers amino acids during protein synthesis."
-},
-{
-  question: "Which system is responsible for transporting oxygen in the body?",
-  choices: ["Nervous system", "Respiratory system", "Circulatory system", "Digestive system"],
-  answer: "Circulatory system",
-  explanation: "Blood carries oxygen via hemoglobin in red blood cells."
-},
-{
-  question: "Which enzyme unwinds DNA during replication?",
-  choices: ["Ligase", "Helicase", "Polymerase", "Primase"],
-  answer: "Helicase",
-  explanation: "Helicase separates DNA strands for replication."
-},
-{
-  question: "Which structure contains digestive enzymes?",
-  choices: ["Nucleus", "Lysosome", "Mitochondria", "Golgi"],
-  answer: "Lysosome",
-  explanation: "Lysosomes break down waste and cellular debris."
-},
-{
-  question: "What is the main function of ribosomes?",
-  choices: ["DNA storage", "Protein synthesis", "Energy production", "Cell division"],
-  answer: "Protein synthesis",
-  explanation: "Ribosomes translate mRNA into proteins."
-},
-{
-  question: "Which phase includes DNA replication?",
-  choices: ["G1 phase", "S phase", "G2 phase", "M phase"],
-  answer: "S phase",
-  explanation: "DNA is replicated during the S (synthesis) phase."
-},
-{
-  question: "Which molecule is hydrophobic?",
-  choices: ["Glucose", "Water", "Lipid", "Protein"],
-  answer: "Lipid",
-  explanation: "Lipids are nonpolar and repel water."
-},
-{
-  question: "Which part of the neuron transmits signals away from the cell body?",
-  choices: ["Dendrite", "Axon", "Synapse", "Nucleus"],
-  answer: "Axon",
-  explanation: "The axon carries impulses away from the neuron."
-},
-{
-  question: "Which structure is found only in plant cells?",
-  choices: ["Mitochondria", "Cell wall", "Nucleus", "Ribosome"],
-  answer: "Cell wall",
-  explanation: "Plant cells have a rigid cell wall for support."
-},
-{
-  question: "Which blood cells fight infection?",
-  choices: ["Red blood cells", "Platelets", "White blood cells", "Plasma"],
-  answer: "White blood cells",
-  explanation: "White blood cells are part of the immune system."
-},
-{
-  question: "Which process moves water across a membrane?",
-  choices: ["Diffusion", "Osmosis", "Active transport", "Endocytosis"],
-  answer: "Osmosis",
-  explanation: "Osmosis is the movement of water across a semipermeable membrane."
-},
-{
-  question: "Which structure stores calcium in muscle cells?",
-  choices: ["Mitochondria", "Sarcoplasmic reticulum", "Golgi", "Nucleus"],
-  answer: "Sarcoplasmic reticulum",
-  explanation: "It regulates calcium for muscle contraction."
-},
-{
-  question: "Which organ filters blood and produces urine?",
-  choices: ["Liver", "Kidney", "Heart", "Lung"],
-  answer: "Kidney",
-  explanation: "Kidneys remove waste and regulate fluid balance."
-},
-{
-  question: "Which level of protein structure is determined by amino acid sequence?",
-  choices: ["Primary", "Secondary", "Tertiary", "Quaternary"],
-  answer: "Primary",
-  explanation: "Primary structure is the linear sequence of amino acids."
-},
-{
-  question: "Which hormone regulates blood glucose levels?",
-  choices: ["Insulin", "Testosterone", "Estrogen", "Melatonin"],
-  answer: "Insulin",
-  explanation: "Insulin lowers blood glucose by promoting uptake into cells."
-}
-]
+        {
+          question: "Which structure is primarily responsible for ATP production in eukaryotic cells?",
+          choices: ["Nucleus", "Mitochondria", "Ribosome", "Golgi apparatus"],
+          answer: "Mitochondria",
+          explanation: "Mitochondria generate ATP through oxidative phosphorylation."
+        },
+        {
+          question: "Which process directly produces glucose in plants?",
+          choices: ["Respiration", "Fermentation", "Photosynthesis", "Translation"],
+          answer: "Photosynthesis",
+          explanation: "Photosynthesis converts light energy into chemical energy stored in glucose."
+        },
+        {
+          question: "What type of bond forms between amino acids?",
+          choices: ["Hydrogen bond", "Peptide bond", "Ionic bond", "Disulfide bond"],
+          answer: "Peptide bond",
+          explanation: "Peptide bonds link amino acids together to form proteins."
+        },
+        {
+          question: "Which phase of mitosis involves separation of sister chromatids?",
+          choices: ["Prophase", "Metaphase", "Anaphase", "Telophase"],
+          answer: "Anaphase",
+          explanation: "During anaphase, sister chromatids are pulled apart to opposite poles."
+        },
+        {
+          question: "Which macromolecule stores genetic information?",
+          choices: ["Protein", "Carbohydrate", "DNA", "Lipid"],
+          answer: "DNA",
+          explanation: "DNA contains genetic instructions for cellular function."
+        },
+        {
+          question: "Which organelle modifies and packages proteins?",
+          choices: ["Lysosome", "Golgi apparatus", "Nucleus", "Mitochondria"],
+          answer: "Golgi apparatus",
+          explanation: "The Golgi modifies and packages proteins for transport."
+        },
+        {
+          question: "Which molecule is the primary energy currency of the cell?",
+          choices: ["ADP", "ATP", "DNA", "Glucose"],
+          answer: "ATP",
+          explanation: "ATP stores and transfers energy within cells."
+        },
+        {
+          question: "Which type of transport requires energy?",
+          choices: ["Diffusion", "Facilitated diffusion", "Active transport", "Osmosis"],
+          answer: "Active transport",
+          explanation: "Active transport uses ATP to move substances against a gradient."
+        },
+        {
+          question: "What happens during transcription?",
+          choices: ["DNA → RNA", "RNA → Protein", "Protein → DNA", "RNA → DNA"],
+          answer: "DNA → RNA",
+          explanation: "Transcription produces mRNA from a DNA template."
+        },
+        {
+          question: "Which structure controls what enters and leaves the cell?",
+          choices: ["Nucleus", "Cell membrane", "Ribosome", "Cytoskeleton"],
+          answer: "Cell membrane",
+          explanation: "The cell membrane regulates transport into and out of the cell."
+        },
+        {
+          question: "Which type of RNA carries amino acids to the ribosome?",
+          choices: ["mRNA", "tRNA", "rRNA", "snRNA"],
+          answer: "tRNA",
+          explanation: "tRNA delivers amino acids during protein synthesis."
+        },
+        {
+          question: "Which system is responsible for transporting oxygen in the body?",
+          choices: ["Nervous system", "Respiratory system", "Circulatory system", "Digestive system"],
+          answer: "Circulatory system",
+          explanation: "Blood carries oxygen via hemoglobin in red blood cells."
+        },
+        {
+          question: "Which enzyme unwinds DNA during replication?",
+          choices: ["Ligase", "Helicase", "Polymerase", "Primase"],
+          answer: "Helicase",
+          explanation: "Helicase separates DNA strands for replication."
+        },
+        {
+          question: "Which structure contains digestive enzymes?",
+          choices: ["Nucleus", "Lysosome", "Mitochondria", "Golgi"],
+          answer: "Lysosome",
+          explanation: "Lysosomes break down waste and cellular debris."
+        },
+        {
+          question: "What is the main function of ribosomes?",
+          choices: ["DNA storage", "Protein synthesis", "Energy production", "Cell division"],
+          answer: "Protein synthesis",
+          explanation: "Ribosomes translate mRNA into proteins."
+        },
+        {
+          question: "Which phase includes DNA replication?",
+          choices: ["G1 phase", "S phase", "G2 phase", "M phase"],
+          answer: "S phase",
+          explanation: "DNA is replicated during the S (synthesis) phase."
+        },
+        {
+          question: "Which molecule is hydrophobic?",
+          choices: ["Glucose", "Water", "Lipid", "Protein"],
+          answer: "Lipid",
+          explanation: "Lipids are nonpolar and repel water."
+        },
+        {
+          question: "Which part of the neuron transmits signals away from the cell body?",
+          choices: ["Dendrite", "Axon", "Synapse", "Nucleus"],
+          answer: "Axon",
+          explanation: "The axon carries impulses away from the neuron."
+        },
+        {
+          question: "Which structure is found only in plant cells?",
+          choices: ["Mitochondria", "Cell wall", "Nucleus", "Ribosome"],
+          answer: "Cell wall",
+          explanation: "Plant cells have a rigid cell wall for support."
+        },
+        {
+          question: "Which blood cells fight infection?",
+          choices: ["Red blood cells", "Platelets", "White blood cells", "Plasma"],
+          answer: "White blood cells",
+          explanation: "White blood cells are part of the immune system."
+        },
+        {
+          question: "Which process moves water across a membrane?",
+          choices: ["Diffusion", "Osmosis", "Active transport", "Endocytosis"],
+          answer: "Osmosis",
+          explanation: "Osmosis is the movement of water across a semipermeable membrane."
+        },
+        {
+          question: "Which structure stores calcium in muscle cells?",
+          choices: ["Mitochondria", "Sarcoplasmic reticulum", "Golgi", "Nucleus"],
+          answer: "Sarcoplasmic reticulum",
+          explanation: "It regulates calcium for muscle contraction."
+        },
+        {
+          question: "Which organ filters blood and produces urine?",
+          choices: ["Liver", "Kidney", "Heart", "Lung"],
+          answer: "Kidney",
+          explanation: "Kidneys remove waste and regulate fluid balance."
+        },
+        {
+          question: "Which level of protein structure is determined by amino acid sequence?",
+          choices: ["Primary", "Secondary", "Tertiary", "Quaternary"],
+          answer: "Primary",
+          explanation: "Primary structure is the linear sequence of amino acids."
+        },
+        {
+          question: "Which hormone regulates blood glucose levels?",
+          choices: ["Insulin", "Testosterone", "Estrogen", "Melatonin"],
+          answer: "Insulin",
+          explanation: "Insulin lowers blood glucose by promoting uptake into cells."
+        }
+      ],
+
+      chemistry: [
+        {
+          question: "What happens to pH if hydrogen ion concentration increases?",
+          choices: ["pH increases", "pH decreases", "pH stays the same", "pH becomes neutral"],
+          answer: "pH decreases",
+          explanation: "More hydrogen ions means the solution is more acidic, so pH goes down."
+        }
+      ],
+
+      physics: [
+        {
+          question: "What is the SI unit of force?",
+          choices: ["Joule", "Pascal", "Newton", "Watt"],
+          answer: "Newton",
+          explanation: "Force is measured in newtons."
+        }
+      ],
+
+      psychology: [
+        {
+          question: "Which part of the brain is most associated with balance and coordination?",
+          choices: ["Cerebellum", "Hypothalamus", "Amygdala", "Medulla"],
+          answer: "Cerebellum",
+          explanation: "The cerebellum helps coordinate movement and balance."
+        }
       ]
     };
 
@@ -424,6 +450,11 @@
     });
 
     function selectSubject(subject) {
+      if (!questionBank[subject] || questionBank[subject].length === 0) {
+        alert("No questions added for this subject yet.");
+        return;
+      }
+
       currentSubject = subject;
       currentQuestions = shuffle(questionBank[subject]);
       currentQuestionIndex = 0;
