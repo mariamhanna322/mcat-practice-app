@@ -14,7 +14,7 @@
     }
 
     .container {
-      max-width: 760px;
+      max-width: 850px;
       margin: 40px auto;
       background: white;
       padding: 24px;
@@ -22,14 +22,50 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     }
 
-    h1 {
+    h1, h2 {
       margin-top: 0;
-      font-size: 2rem;
     }
 
     .subtitle {
       color: #6b7280;
       margin-bottom: 24px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .subject-btn,
+    .choice,
+    .nav-btn,
+    .action-btn,
+    .timer-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .subject-btn,
+    .action-btn,
+    .timer-btn {
+      background: #2563eb;
+      color: white;
+    }
+
+    .subject-btn:hover,
+    .action-btn:hover,
+    .timer-btn:hover,
+    .nav-btn:hover {
+      opacity: 0.95;
     }
 
     .question-box {
@@ -38,6 +74,15 @@
       border: 1px solid #e5e7eb;
       border-radius: 12px;
       background: #fafafa;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
     }
 
     .question-number {
@@ -53,21 +98,13 @@
       margin-top: 16px;
     }
 
-    button.choice,
-    .nav-btn {
-      border: none;
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    button.choice {
+    .choice {
       text-align: left;
       background: #eef2ff;
+      color: #111827;
     }
 
-    button.choice:hover {
+    .choice:hover {
       background: #dbeafe;
     }
 
@@ -76,12 +113,14 @@
       justify-content: space-between;
       margin-top: 20px;
       gap: 12px;
+      flex-wrap: wrap;
     }
 
     .nav-btn {
       background: #2563eb;
       color: white;
       flex: 1;
+      min-width: 120px;
     }
 
     .nav-btn:disabled {
@@ -106,112 +145,308 @@
       color: #991b1b;
     }
 
-    .score {
-      margin-top: 16px;
+    .score,
+    .timer,
+    .subject-label {
       font-weight: bold;
+    }
+
+    .summary-box {
+      text-align: center;
+      padding: 28px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fafafa;
+    }
+
+    .summary-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>MCAT Practice App</h1>
-    <p class="subtitle">A super simple question practice app for students.</p>
+    <p class="subtitle">Pick a subject, answer randomized questions, track your score, and optionally practice with a timer.</p>
 
-    <div class="question-box">
-      <div class="question-number" id="question-number"></div>
-      <div id="question-text"></div>
-      <div class="choices" id="choices"></div>
-      <div class="feedback" id="feedback"></div>
-      <div class="score" id="score"></div>
+    <div id="subject-screen">
+      <h2>Choose a Subject</h2>
+      <p>Select one category to start your practice quiz.</p>
+      <div style="margin-top: 16px; margin-bottom: 12px;">
+        <button class="timer-btn" id="timer-toggle-btn">Timer: Off</button>
+      </div>
+      <div class="subject-grid">
+        <button class="subject-btn" onclick="selectSubject('biology')">Biology</button>
+        <button class="subject-btn" onclick="selectSubject('chemistry')">Chemistry</button>
+        <button class="subject-btn" onclick="selectSubject('physics')">Physics</button>
+        <button class="subject-btn" onclick="selectSubject('psychology')">Psychology</button>
+      </div>
     </div>
 
-    <div class="nav">
-      <button class="nav-btn" id="prev-btn">Previous</button>
-      <button class="nav-btn" id="next-btn">Next</button>
+    <div id="quiz-screen" class="hidden">
+      <div class="question-box">
+        <div class="top-bar">
+          <div class="subject-label" id="subject-label"></div>
+          <div class="timer" id="timer">Timer: Off</div>
+          <div class="score" id="score">Score: 0</div>
+        </div>
+        <div class="question-number" id="question-number"></div>
+        <div id="question-text"></div>
+        <div class="choices" id="choices"></div>
+        <div class="feedback" id="feedback"></div>
+      </div>
+
+      <div class="nav">
+        <button class="nav-btn" id="prev-btn">Previous</button>
+        <button class="nav-btn" id="next-btn">Next</button>
+      </div>
+    </div>
+
+    <div id="summary-screen" class="hidden">
+      <div class="summary-box">
+        <h2>Quiz Complete 🎉</h2>
+        <p id="summary-subject"></p>
+        <p id="summary-score"></p>
+        <p id="summary-percent"></p>
+        <div class="summary-actions">
+          <button class="action-btn" onclick="restartQuiz()">Restart Same Subject</button>
+          <button class="action-btn" onclick="goHome()">Choose Another Subject</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
-    const questions = [
-      {
-        question: "What is the primary function of the mitochondria?",
-        choices: [
-          "Protein synthesis",
-          "Energy production",
-          "DNA storage",
-          "Lipid digestion"
-        ],
-        answer: "Energy production",
-        explanation: "Mitochondria make ATP, which provides energy for the cell."
-      },
-      {
-        question: "Which macromolecule is made of amino acids?",
-        choices: [
-          "Carbohydrates",
-          "Lipids",
-          "Proteins",
-          "Nucleic acids"
-        ],
-        answer: "Proteins",
-        explanation: "Proteins are polymers built from amino acid monomers."
-      },
-      {
-        question: "What happens to pH if hydrogen ion concentration increases?",
-        choices: [
-          "pH increases",
-          "pH decreases",
-          "pH stays the same",
-          "pH becomes neutral"
-        ],
-        answer: "pH decreases",
-        explanation: "More hydrogen ions means the solution is more acidic, so pH goes down."
-      }
-    ];
+    const questionBank = {
+      biology: [
+        {
+          question: "What is the primary function of the mitochondria?",
+          choices: ["Protein synthesis", "Energy production", "DNA storage", "Lipid digestion"],
+          answer: "Energy production",
+          explanation: "Mitochondria make ATP, which provides energy for the cell."
+        },
+        {
+          question: "Which macromolecule is made of amino acids?",
+          choices: ["Carbohydrates", "Lipids", "Proteins", "Nucleic acids"],
+          answer: "Proteins",
+          explanation: "Proteins are polymers built from amino acid monomers."
+        },
+        {
+          question: "Which organelle is responsible for modifying and packaging proteins?",
+          choices: ["Golgi apparatus", "Lysosome", "Nucleus", "Centrosome"],
+          answer: "Golgi apparatus",
+          explanation: "The Golgi apparatus modifies, sorts, and packages proteins."
+        },
+        {
+          question: "What molecule carries genetic information in most organisms?",
+          choices: ["ATP", "DNA", "RNA", "Glucose"],
+          answer: "DNA",
+          explanation: "DNA stores hereditary information in most living organisms."
+        }
+      ],
+      chemistry: [
+        {
+          question: "What happens to pH if hydrogen ion concentration increases?",
+          choices: ["pH increases", "pH decreases", "pH stays the same", "pH becomes neutral"],
+          answer: "pH decreases",
+          explanation: "More hydrogen ions means the solution is more acidic, so pH goes down."
+        },
+        {
+          question: "What type of bond involves the sharing of electrons?",
+          choices: ["Ionic bond", "Hydrogen bond", "Covalent bond", "Metallic bond"],
+          answer: "Covalent bond",
+          explanation: "Covalent bonds form when atoms share electrons."
+        },
+        {
+          question: "What is the atomic number equal to?",
+          choices: ["Neutrons only", "Protons only", "Protons and neutrons", "Electrons and neutrons"],
+          answer: "Protons only",
+          explanation: "The atomic number is defined by the number of protons in the nucleus."
+        },
+        {
+          question: "What is the pH of a neutral solution at 25°C?",
+          choices: ["0", "5", "7", "14"],
+          answer: "7",
+          explanation: "A neutral solution has a pH of 7 at 25°C."
+        }
+      ],
+      physics: [
+        {
+          question: "What is the SI unit of force?",
+          choices: ["Joule", "Pascal", "Newton", "Watt"],
+          answer: "Newton",
+          explanation: "Force is measured in newtons (N)."
+        },
+        {
+          question: "What is the formula for velocity?",
+          choices: ["Distance × time", "Distance / time", "Mass × acceleration", "Work / time"],
+          answer: "Distance / time",
+          explanation: "Velocity describes how much distance is covered per unit time."
+        },
+        {
+          question: "Which quantity is a vector?",
+          choices: ["Speed", "Mass", "Temperature", "Velocity"],
+          answer: "Velocity",
+          explanation: "Velocity has both magnitude and direction, so it is a vector."
+        },
+        {
+          question: "What is the acceleration due to gravity near Earth?",
+          choices: ["9.8 m/s²", "3.0 m/s²", "1.6 m/s²", "15 m/s²"],
+          answer: "9.8 m/s²",
+          explanation: "Near Earth's surface, gravity causes acceleration of about 9.8 m/s²."
+        }
+      ],
+      psychology: [
+        {
+          question: "Which part of the brain is most associated with balance and coordination?",
+          choices: ["Cerebellum", "Hypothalamus", "Amygdala", "Medulla"],
+          answer: "Cerebellum",
+          explanation: "The cerebellum helps coordinate movement and maintain balance."
+        },
+        {
+          question: "What term describes a learned association between two stimuli?",
+          choices: ["Operant conditioning", "Classical conditioning", "Modeling", "Habituation"],
+          answer: "Classical conditioning",
+          explanation: "Classical conditioning involves learning through association between stimuli."
+        },
+        {
+          question: "Which concept refers to how people explain the causes of behavior?",
+          choices: ["Attribution theory", "Drive reduction", "Cognitive dissonance", "Social loafing"],
+          answer: "Attribution theory",
+          explanation: "Attribution theory looks at how people interpret the causes of actions and events."
+        },
+        {
+          question: "Which memory system briefly holds incoming information?",
+          choices: ["Long-term memory", "Sensory memory", "Procedural memory", "Implicit memory"],
+          answer: "Sensory memory",
+          explanation: "Sensory memory briefly holds sensory information before it is processed further."
+        }
+      ]
+    };
 
-    let currentQuestion = 0;
+    let currentSubject = "";
+    let currentQuestions = [];
+    let currentQuestionIndex = 0;
     let score = 0;
     let answeredQuestions = new Set();
+    let userAnswers = {};
+    let timerEnabled = false;
+    let timeLeft = 0;
+    let timerInterval = null;
 
+    const subjectScreen = document.getElementById("subject-screen");
+    const quizScreen = document.getElementById("quiz-screen");
+    const summaryScreen = document.getElementById("summary-screen");
+    const subjectLabel = document.getElementById("subject-label");
     const questionNumber = document.getElementById("question-number");
     const questionText = document.getElementById("question-text");
     const choicesContainer = document.getElementById("choices");
     const feedback = document.getElementById("feedback");
     const scoreDisplay = document.getElementById("score");
+    const timerDisplay = document.getElementById("timer");
     const prevBtn = document.getElementById("prev-btn");
     const nextBtn = document.getElementById("next-btn");
+    const timerToggleBtn = document.getElementById("timer-toggle-btn");
+
+    function shuffle(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function formatSubjectName(subject) {
+      return subject.charAt(0).toUpperCase() + subject.slice(1);
+    }
+
+    function updateTimerToggleLabel() {
+      timerToggleBtn.textContent = timerEnabled ? "Timer: On" : "Timer: Off";
+    }
+
+    timerToggleBtn.addEventListener("click", () => {
+      timerEnabled = !timerEnabled;
+      updateTimerToggleLabel();
+    });
+
+    function selectSubject(subject) {
+      currentSubject = subject;
+      currentQuestions = shuffle(questionBank[subject]);
+      currentQuestionIndex = 0;
+      score = 0;
+      answeredQuestions = new Set();
+      userAnswers = {};
+      clearTimer();
+
+      if (timerEnabled) {
+        timeLeft = currentQuestions.length * 30;
+        startTimer();
+      } else {
+        timerDisplay.textContent = "Timer: Off";
+      }
+
+      subjectLabel.textContent = `Subject: ${formatSubjectName(subject)}`;
+      subjectScreen.classList.add("hidden");
+      summaryScreen.classList.add("hidden");
+      quizScreen.classList.remove("hidden");
+      loadQuestion();
+    }
 
     function loadQuestion() {
-      const q = questions[currentQuestion];
-      questionNumber.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+      const q = currentQuestions[currentQuestionIndex];
+      questionNumber.textContent = `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
       questionText.textContent = q.question;
       choicesContainer.innerHTML = "";
       feedback.style.display = "none";
       feedback.className = "feedback";
+      scoreDisplay.textContent = `Score: ${score}`;
 
       q.choices.forEach(choice => {
         const btn = document.createElement("button");
         btn.className = "choice";
         btn.textContent = choice;
         btn.onclick = () => checkAnswer(choice);
+
+        if (userAnswers[currentQuestionIndex]) {
+          btn.disabled = true;
+        }
+
         choicesContainer.appendChild(btn);
       });
 
-      prevBtn.disabled = currentQuestion === 0;
-      nextBtn.disabled = currentQuestion === questions.length - 1;
-      scoreDisplay.textContent = `Score: ${score}`;
+      if (userAnswers[currentQuestionIndex]) {
+        const selectedChoice = userAnswers[currentQuestionIndex];
+        if (selectedChoice === q.answer) {
+          feedback.className = "feedback correct";
+          feedback.textContent = `Correct! ${q.explanation}`;
+        } else {
+          feedback.className = "feedback incorrect";
+          feedback.textContent = `Incorrect. Correct answer: ${q.answer}. ${q.explanation}`;
+        }
+        feedback.style.display = "block";
+      }
+
+      prevBtn.disabled = currentQuestionIndex === 0;
+      nextBtn.textContent = currentQuestionIndex === currentQuestions.length - 1 ? "Finish Quiz" : "Next";
     }
 
     function checkAnswer(selectedChoice) {
-      const q = questions[currentQuestion];
+      const q = currentQuestions[currentQuestionIndex];
 
-      if (answeredQuestions.has(currentQuestion)) {
+      if (answeredQuestions.has(currentQuestionIndex)) {
         feedback.style.display = "block";
         feedback.className = "feedback incorrect";
-        feedback.textContent = "You already answered this question. Click Next or Previous.";
+        feedback.textContent = "You already answered this question. Use Next or Previous.";
         return;
       }
 
-      answeredQuestions.add(currentQuestion);
+      answeredQuestions.add(currentQuestionIndex);
+      userAnswers[currentQuestionIndex] = selectedChoice;
 
       if (selectedChoice === q.answer) {
         score++;
@@ -224,23 +459,73 @@
 
       feedback.style.display = "block";
       scoreDisplay.textContent = `Score: ${score}`;
+      loadQuestion();
+    }
+
+    function startTimer() {
+      clearTimer();
+      timerDisplay.textContent = `Time: ${timeLeft}s`;
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = `Time: ${timeLeft}s`;
+
+        if (timeLeft <= 0) {
+          clearTimer();
+          showSummary();
+        }
+      }, 1000);
+    }
+
+    function clearTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    function showSummary() {
+      clearTimer();
+      quizScreen.classList.add("hidden");
+      summaryScreen.classList.remove("hidden");
+
+      const total = currentQuestions.length;
+      const percent = total > 0 ? Math.round((score / total) * 100) : 0;
+
+      document.getElementById("summary-subject").textContent = `Subject: ${formatSubjectName(currentSubject)}`;
+      document.getElementById("summary-score").textContent = `Your Score: ${score} / ${total}`;
+      document.getElementById("summary-percent").textContent = `Percentage: ${percent}%`;
+    }
+
+    function restartQuiz() {
+      selectSubject(currentSubject);
+    }
+
+    function goHome() {
+      clearTimer();
+      subjectScreen.classList.remove("hidden");
+      quizScreen.classList.add("hidden");
+      summaryScreen.classList.add("hidden");
+      currentSubject = "";
     }
 
     prevBtn.onclick = () => {
-      if (currentQuestion > 0) {
-        currentQuestion--;
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
         loadQuestion();
       }
     };
 
     nextBtn.onclick = () => {
-      if (currentQuestion < questions.length - 1) {
-        currentQuestion++;
+      if (currentQuestionIndex === currentQuestions.length - 1) {
+        showSummary();
+      } else {
+        currentQuestionIndex++;
         loadQuestion();
       }
     };
 
-    loadQuestion();
+    updateTimerToggleLabel();
   </script>
 </body>
 </html>
