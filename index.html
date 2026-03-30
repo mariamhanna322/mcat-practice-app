@@ -223,108 +223,158 @@
   <script>
     const questionBank = {
       biology: [
-        {
-          question: "What is the primary function of the mitochondria?",
-          choices: ["Protein synthesis", "Energy production", "DNA storage", "Lipid digestion"],
-          answer: "Energy production",
-          explanation: "Mitochondria make ATP, which provides energy for the cell."
-        },
-        {
-          question: "Which macromolecule is made of amino acids?",
-          choices: ["Carbohydrates", "Lipids", "Proteins", "Nucleic acids"],
-          answer: "Proteins",
-          explanation: "Proteins are polymers built from amino acid monomers."
-        },
-        {
-          question: "Which organelle is responsible for modifying and packaging proteins?",
-          choices: ["Golgi apparatus", "Lysosome", "Nucleus", "Centrosome"],
-          answer: "Golgi apparatus",
-          explanation: "The Golgi apparatus modifies, sorts, and packages proteins."
-        },
-        {
-          question: "What molecule carries genetic information in most organisms?",
-          choices: ["ATP", "DNA", "RNA", "Glucose"],
-          answer: "DNA",
-          explanation: "DNA stores hereditary information in most living organisms."
-        }
-      ],
-      chemistry: [
-        {
-          question: "What happens to pH if hydrogen ion concentration increases?",
-          choices: ["pH increases", "pH decreases", "pH stays the same", "pH becomes neutral"],
-          answer: "pH decreases",
-          explanation: "More hydrogen ions means the solution is more acidic, so pH goes down."
-        },
-        {
-          question: "What type of bond involves the sharing of electrons?",
-          choices: ["Ionic bond", "Hydrogen bond", "Covalent bond", "Metallic bond"],
-          answer: "Covalent bond",
-          explanation: "Covalent bonds form when atoms share electrons."
-        },
-        {
-          question: "What is the atomic number equal to?",
-          choices: ["Neutrons only", "Protons only", "Protons and neutrons", "Electrons and neutrons"],
-          answer: "Protons only",
-          explanation: "The atomic number is defined by the number of protons in the nucleus."
-        },
-        {
-          question: "What is the pH of a neutral solution at 25°C?",
-          choices: ["0", "5", "7", "14"],
-          answer: "7",
-          explanation: "A neutral solution has a pH of 7 at 25°C."
-        }
-      ],
-      physics: [
-        {
-          question: "What is the SI unit of force?",
-          choices: ["Joule", "Pascal", "Newton", "Watt"],
-          answer: "Newton",
-          explanation: "Force is measured in newtons (N)."
-        },
-        {
-          question: "What is the formula for velocity?",
-          choices: ["Distance × time", "Distance / time", "Mass × acceleration", "Work / time"],
-          answer: "Distance / time",
-          explanation: "Velocity describes how much distance is covered per unit time."
-        },
-        {
-          question: "Which quantity is a vector?",
-          choices: ["Speed", "Mass", "Temperature", "Velocity"],
-          answer: "Velocity",
-          explanation: "Velocity has both magnitude and direction, so it is a vector."
-        },
-        {
-          question: "What is the acceleration due to gravity near Earth?",
-          choices: ["9.8 m/s²", "3.0 m/s²", "1.6 m/s²", "15 m/s²"],
-          answer: "9.8 m/s²",
-          explanation: "Near Earth's surface, gravity causes acceleration of about 9.8 m/s²."
-        }
-      ],
-      psychology: [
-        {
-          question: "Which part of the brain is most associated with balance and coordination?",
-          choices: ["Cerebellum", "Hypothalamus", "Amygdala", "Medulla"],
-          answer: "Cerebellum",
-          explanation: "The cerebellum helps coordinate movement and maintain balance."
-        },
-        {
-          question: "What term describes a learned association between two stimuli?",
-          choices: ["Operant conditioning", "Classical conditioning", "Modeling", "Habituation"],
-          answer: "Classical conditioning",
-          explanation: "Classical conditioning involves learning through association between stimuli."
-        },
-        {
-          question: "Which concept refers to how people explain the causes of behavior?",
-          choices: ["Attribution theory", "Drive reduction", "Cognitive dissonance", "Social loafing"],
-          answer: "Attribution theory",
-          explanation: "Attribution theory looks at how people interpret the causes of actions and events."
-        },
-        {
-          question: "Which memory system briefly holds incoming information?",
-          choices: ["Long-term memory", "Sensory memory", "Procedural memory", "Implicit memory"],
-          answer: "Sensory memory",
-          explanation: "Sensory memory briefly holds sensory information before it is processed further."
-        }
+       biology: [
+{
+  question: "Which structure is primarily responsible for ATP production in eukaryotic cells?",
+  choices: ["Nucleus", "Mitochondria", "Ribosome", "Golgi apparatus"],
+  answer: "Mitochondria",
+  explanation: "Mitochondria generate ATP through oxidative phosphorylation."
+},
+{
+  question: "Which process directly produces glucose in plants?",
+  choices: ["Respiration", "Fermentation", "Photosynthesis", "Translation"],
+  answer: "Photosynthesis",
+  explanation: "Photosynthesis converts light energy into chemical energy stored in glucose."
+},
+{
+  question: "What type of bond forms between amino acids?",
+  choices: ["Hydrogen bond", "Peptide bond", "Ionic bond", "Disulfide bond"],
+  answer: "Peptide bond",
+  explanation: "Peptide bonds link amino acids together to form proteins."
+},
+{
+  question: "Which phase of mitosis involves separation of sister chromatids?",
+  choices: ["Prophase", "Metaphase", "Anaphase", "Telophase"],
+  answer: "Anaphase",
+  explanation: "During anaphase, sister chromatids are pulled apart to opposite poles."
+},
+{
+  question: "Which macromolecule stores genetic information?",
+  choices: ["Protein", "Carbohydrate", "DNA", "Lipid"],
+  answer: "DNA",
+  explanation: "DNA contains genetic instructions for cellular function."
+},
+{
+  question: "Which organelle modifies and packages proteins?",
+  choices: ["Lysosome", "Golgi apparatus", "Nucleus", "Mitochondria"],
+  answer: "Golgi apparatus",
+  explanation: "The Golgi modifies and packages proteins for transport."
+},
+{
+  question: "Which molecule is the primary energy currency of the cell?",
+  choices: ["ADP", "ATP", "DNA", "Glucose"],
+  answer: "ATP",
+  explanation: "ATP stores and transfers energy within cells."
+},
+{
+  question: "Which type of transport requires energy?",
+  choices: ["Diffusion", "Facilitated diffusion", "Active transport", "Osmosis"],
+  answer: "Active transport",
+  explanation: "Active transport uses ATP to move substances against a gradient."
+},
+{
+  question: "What happens during transcription?",
+  choices: ["DNA → RNA", "RNA → Protein", "Protein → DNA", "RNA → DNA"],
+  answer: "DNA → RNA",
+  explanation: "Transcription produces mRNA from a DNA template."
+},
+{
+  question: "Which structure controls what enters and leaves the cell?",
+  choices: ["Nucleus", "Cell membrane", "Ribosome", "Cytoskeleton"],
+  answer: "Cell membrane",
+  explanation: "The cell membrane regulates transport into and out of the cell."
+},
+{
+  question: "Which type of RNA carries amino acids to the ribosome?",
+  choices: ["mRNA", "tRNA", "rRNA", "snRNA"],
+  answer: "tRNA",
+  explanation: "tRNA delivers amino acids during protein synthesis."
+},
+{
+  question: "Which system is responsible for transporting oxygen in the body?",
+  choices: ["Nervous system", "Respiratory system", "Circulatory system", "Digestive system"],
+  answer: "Circulatory system",
+  explanation: "Blood carries oxygen via hemoglobin in red blood cells."
+},
+{
+  question: "Which enzyme unwinds DNA during replication?",
+  choices: ["Ligase", "Helicase", "Polymerase", "Primase"],
+  answer: "Helicase",
+  explanation: "Helicase separates DNA strands for replication."
+},
+{
+  question: "Which structure contains digestive enzymes?",
+  choices: ["Nucleus", "Lysosome", "Mitochondria", "Golgi"],
+  answer: "Lysosome",
+  explanation: "Lysosomes break down waste and cellular debris."
+},
+{
+  question: "What is the main function of ribosomes?",
+  choices: ["DNA storage", "Protein synthesis", "Energy production", "Cell division"],
+  answer: "Protein synthesis",
+  explanation: "Ribosomes translate mRNA into proteins."
+},
+{
+  question: "Which phase includes DNA replication?",
+  choices: ["G1 phase", "S phase", "G2 phase", "M phase"],
+  answer: "S phase",
+  explanation: "DNA is replicated during the S (synthesis) phase."
+},
+{
+  question: "Which molecule is hydrophobic?",
+  choices: ["Glucose", "Water", "Lipid", "Protein"],
+  answer: "Lipid",
+  explanation: "Lipids are nonpolar and repel water."
+},
+{
+  question: "Which part of the neuron transmits signals away from the cell body?",
+  choices: ["Dendrite", "Axon", "Synapse", "Nucleus"],
+  answer: "Axon",
+  explanation: "The axon carries impulses away from the neuron."
+},
+{
+  question: "Which structure is found only in plant cells?",
+  choices: ["Mitochondria", "Cell wall", "Nucleus", "Ribosome"],
+  answer: "Cell wall",
+  explanation: "Plant cells have a rigid cell wall for support."
+},
+{
+  question: "Which blood cells fight infection?",
+  choices: ["Red blood cells", "Platelets", "White blood cells", "Plasma"],
+  answer: "White blood cells",
+  explanation: "White blood cells are part of the immune system."
+},
+{
+  question: "Which process moves water across a membrane?",
+  choices: ["Diffusion", "Osmosis", "Active transport", "Endocytosis"],
+  answer: "Osmosis",
+  explanation: "Osmosis is the movement of water across a semipermeable membrane."
+},
+{
+  question: "Which structure stores calcium in muscle cells?",
+  choices: ["Mitochondria", "Sarcoplasmic reticulum", "Golgi", "Nucleus"],
+  answer: "Sarcoplasmic reticulum",
+  explanation: "It regulates calcium for muscle contraction."
+},
+{
+  question: "Which organ filters blood and produces urine?",
+  choices: ["Liver", "Kidney", "Heart", "Lung"],
+  answer: "Kidney",
+  explanation: "Kidneys remove waste and regulate fluid balance."
+},
+{
+  question: "Which level of protein structure is determined by amino acid sequence?",
+  choices: ["Primary", "Secondary", "Tertiary", "Quaternary"],
+  answer: "Primary",
+  explanation: "Primary structure is the linear sequence of amino acids."
+},
+{
+  question: "Which hormone regulates blood glucose levels?",
+  choices: ["Insulin", "Testosterone", "Estrogen", "Melatonin"],
+  answer: "Insulin",
+  explanation: "Insulin lowers blood glucose by promoting uptake into cells."
+}
+]
       ]
     };
 
